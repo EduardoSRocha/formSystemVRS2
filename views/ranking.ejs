@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br" xml:lang="pt-br">
+
+<head>
+	<title></title>
+	<% include ./partials/generalMetaTags %>
+	<% include ./partials/generalLinksScripts %>
+</head>
+
+<body>
+	<!-- Includes -->
+	<% include ./partials/navbar %>
+	</br></br>
+	<!-- Corpo -->
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h3>Classificação dos usuários</h3>
+				<p>Ranking de participação dos usuários dentro da plataforma.
+					Usuários que utilizam a plataforma aparecem aqui.</p>
+			</div>
+			<div class="col-12 d-flex justify-content-center">
+				<div class="d-flex row">
+					<a class="btn btn-light" data-toggle="collapse" href="#Perguntas" role="button"
+						aria-expanded="false" aria-controls="Perguntas">Ranking por perguntas</a>
+					<a class="btn btn-light" data-toggle="collapse" href="#Respostas" role="button"
+						aria-expanded="false" aria-controls="Respostas">Ranking por respostas</a>
+				</div>
+			</div>
+
+			<div class="col-12">
+				</br>
+				<div id="accordion">
+					<div class="collapse show" data-parent="#accordion" id="Perguntas">
+						<table class="table table-striped table-bordered" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Posição</th>
+									<th>Nome</th>
+									<th>Pontuação</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Usuário 1</td>
+									<td>215</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Usuário 2</td>
+									<td>210</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="collapse" data-parent="#accordion" id="Respostas">
+						<table class="table table-striped table-bordered" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Posição</th>
+									<th>Nome</th>
+									<th>Pontuação</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Usuário 3</td>
+									<td>115</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Usuário 4</td>
+									<td>110</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	<footer class="footer bg-dark text-center">
+		<div class="container">
+			<span class="text-white ">Footer - Copyright 2019</span>
+		</div>
+	</footer>
+</body>
+</html>

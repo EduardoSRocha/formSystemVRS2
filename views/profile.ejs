@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br" xml:lang="pt-br">
+
+<head>
+	<title></title>
+	<% include ./partials/generalMetaTags %>
+	<% include ./partials/generalLinksScripts %>
+</head>
+
+<body>
+	<!-- Includes -->
+	<% include ./partials/navbar %>
+	</br></br>
+	<!-- Corpo -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<div class="d-flex flex-column align-items-center">
+							<div class="rounded-circle"
+								style="width:200px;height:auto;background-color: rgb(143, 68, 173);"></div>
+							<h3>
+								<% if(currentUser == undefined) { %>
+									Não autenticado
+								<% } else { %>
+											<%= currentUser.username %>
+								
+								<% } %>
+							</h3>
+						</div>
+					</li>
+					<li class="list-group-item">Pontuação por perguntas: <b>
+						<% if(currentUser == undefined) { %> 
+							Usuário não logado - Erro na autenticação
+						<% } else if(currentUser.AskPoints == undefined){ %>
+							Pontuação indefinida
+						<% } else { %>
+							<%= currentUser.AskPoints %>
+						<% } %>
+					</b></li>
+					<li class="list-group-item">Pontuação por respostas: <b>
+						<% if(currentUser == undefined) { %> 
+							Usuário não logado - Erro na autenticação
+						<% } else if(currentUser.AnswerPoints == undefined){ %>
+							Pontuação indefinida
+						<% } else { %>
+							<%= currentUser.AnswerPoints %>
+						<% } %>
+					</b></li>
+					<li class="list-group-item">
+						<h5>Título:</h5>
+						<p class="font-weight-light">This column takes the full height as its sibling column thanks to
+							Flexbox</p>
+					</li>
+				</ul></br>
+			</div>
+
+			<div class="col-sm-9">
+				<ul class="nav nav-pills d-flex justify-content-around">
+					<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#infos" style="background: none; color: rgb(143, 68, 173);">Perfil do usuário</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#editar" style="background: none; color: rgb(143, 68, 173);">Editar informações</a></li>
+					<li class="nav-item">To do</li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<div class="tab-content">
+							<div class="tab-pane container active" id="infos">
+								<h3>Perfil do usuário</h3>
+								<p> Email: 
+									<% if(currentUser == undefined) { %> 
+										Usuário não logado - Erro na autenticação
+									<% } else if(currentUser.email == undefined){ %>
+										Email do usuário não cadastrado
+									<% } else { %>
+										<%= currentUser.email %>
+									<% } %>
+								</p>
+								<p> Gênero:
+									<% if(currentUser == undefined) {%>
+										Usuário não logado - Erro na autenticação
+									<% } else if(currentUser.gender == undefined){ %>
+										<a href="#editar" data-toggle="tab"> Definir </a> 
+									<% } else { %>
+										<%= currentUser.gender %>
+									<% } %>
+								</p>
+								<p>Idade:
+									<% if(currentUser == undefined) {%>
+										Usuário não logado - Erro na autenticação
+									<% } else if(currentUser.bday == undefined){ %>
+										Idade do usuário não definida
+									<% } else { %>
+										<% var now = new Date(Date.now()); %>
+										<% var bday = new Date(currentUser.bday); %>
+										<% var age = now.getYear() - bday.getYear(); %>
+										<%= age %>
+									<% } %>
+								</p>
+							</div>
+							<div class="tab-pane container fade" id="editar">
+
+								<h3>Editar informações</h3>
+								<div class="form-group row">
+									<label for="inserirGenero" class="col-sm-3 col-form-label">Gênero:</label>
+									<form action="/updateInfos" method="POST">
+										<div class="col-sm-9">
+											<select onchange="editEvent()" class="form-control" name="genero" id="gender" >
+												<option selected value="">Selecione</option>
+												<option value="masculino">Masculino</option>
+												<option value="feminino">Feminino</option>
+												<option value="outro">Outro</option>
+											</select>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>		
+			</div>
+		</div>
+	</div>
+	<!-- Ajax requests -->
+
+	<script>  
+		function editEvent(){
+			var gender = document.getElementById("gender").value;
+			$.ajax({
+				type:'POST',
+				url: 'updateInfos',
+				data: {gender: gender}
+			}).done(function(response){
+				window.location.reload();
+			}).fail(function(response){
+				console.log("Oops not working");
+			});
+		};
+	</script>
+</body>
+</html>

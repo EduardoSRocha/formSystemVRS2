@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<!-- Lado esquerdo -->
+		<!-- Login -->
+		<% if(!currentUser || currentUser == undefined) {%>	
+			<a class="navbar-brand" href="/">Website</a>
+		<!-- Usuário logado -->
+		<% } else { %>
+			<a class="navbar-brand" href="/home">Website</a>
+		<% } %>
+
+	<!-- Lado direito-->
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav ml-auto">		
+			<!-- Não usuário -->
+			<% if (!currentUser || currentUser == undefined){ %>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="modal" data-target="#registrar"><span class="fas fa-user"></span>Registrar</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/login" ><span class="fas fa-sign-in-alt"></span>Entrar</a>
+				</li>
+			<!-- Usuário logado -->
+			<% } else { %>
+				<li class="nav-item">
+					<a class="nav-link" href="/ranking">Ranking</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/perfil">Perfil</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/logout">Sair</a>
+				</li>
+			<% } %>
+		</ul>
+	</div>
+
+	<!-- menu mobile -->
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+		data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+</nav>

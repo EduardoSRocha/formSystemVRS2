@@ -1,0 +1,133 @@
+<div class="tab-pane container fade" id="formularios_encerrados">
+    <div class="row">
+        <div class="col col-lg-12 p-1">
+            <h3 class="text-center">Formulários encerrados</h3>
+            <p class="text-center">Local onde você encontra os formulários já concluidos.</p>
+        </div>
+        <div class="col col-lg-6 order-0 p-1">
+            <div class="card" id="pergunta-encerrada-0">
+                <div class="card-header text-center" data-toggle="collapse"
+                    data-target="#pergunta-encerrada-0-conteudo">
+                    <h4>Pergunta encerrada 0</h4>
+                </div>
+                <div class="collapse show" id="pergunta-encerrada-0-conteudo">
+                    <div class="card-img text-center">
+                        <img src="img/pergunta_1.png" class="py-2 mx-auto d-block img-fluid" width="420"
+                            height="100">
+                    </div>
+                    <div class="card-body text-center">
+                        <h4>Que dia é hoje?</h4>
+                        <span class="text-muted">Você sabe que dia é hoje? Caso a resposta seja sim,
+                            responda!</span>
+                        <br>
+                        <span class="text-muted"><b>Formulário de resposta numérica</b></span>
+                        <hr>
+                        <span class="text-muted">Enviada por: <b>Usuário A</b></span>
+                        <script type="text/javascript">
+                            google.charts.load('current', { 'packages': ['corechart'] });
+                            google.charts.setOnLoadCallback(drawChart);
+                            function drawChart() {
+                                var data = google.visualization.arrayToDataTable([
+                                    ['Dia'],
+                                    [20],
+                                    [23],
+                                    [23],
+                                    [24],
+                                    [25],
+                                    [25],
+                                    [25],
+                                    [25],
+                                    [25],
+                                    [27],
+                                    [26],
+                                    [26]
+                                ]);
+
+                                var options = {
+                                    legend: { position: 'none' },
+
+                                };
+                                var chart = new google.visualization.Histogram(document.getElementById('graf-teste-0'));
+                                chart.draw(data, options);
+                            }
+                        </script>
+                        <div id="graf-teste-0"></div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button class="btn btn-danger btn-sm disabled">Votação encerrada!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-6 order-0 p-1">
+            <div class="card" id="pergunta-encerrada-1">
+                <div class="card-header text-center" data-toggle="collapse"
+                    data-target="#pergunta-encerrada-1-conteudo">
+                    <h4>Pergunta encerrada 1</h4>
+                </div>
+                <div class="collapse show" id="pergunta-encerrada-1-conteudo">
+                    <div class="card-img text-center">
+                        <img src="img/pergunta_2.png" class="py-2 mx-auto d-block img-fluid" width="420"
+                            height="100">
+                    </div>
+                    <div class="card-body text-center">
+                        <h4>Em qual estação estamos?</h4>
+                        <span class="text-muted">Você sabe em qual estação estamos? Caso a resposta seja
+                            sim, responda!</span>
+                        <br>
+                        <span class="text-muted"><b>Formulário de múltipla escolha OU caixas de
+                                seleção</b></span>
+                        <hr>
+                        <span class="text-muted">Enviada por: <b>Usuário B</b></span>
+                        <script type="text/javascript">
+                            google.charts.load('current', { 'packages': ['corechart'] });
+                            google.charts.setOnLoadCallback(drawChart);
+                            function drawChart() {
+                                var data = google.visualization.arrayToDataTable([
+                                    ['Alternativa', 'Votos'],
+                                    ['Alt A', 250],
+                                    ['Alt B', 150],
+                                    ['Alt C', 75],
+                                    ['Alt D', 25]
+                                ]);
+
+                                var options = { is3D: true, };
+                                var chart = new google.visualization.PieChart(document.getElementById('graf-teste-1'));
+                                chart.draw(data, options);
+                            }
+                        </script>
+                        <div id="graf-teste-1"></div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button class="btn btn-danger btn-sm disabled">Votação encerrada!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-6 order-0 p-1">
+            <div class="card" id="pergunta-encerrada-2">
+                <div class="card-header text-center" data-toggle="collapse"
+                    data-target="#pergunta-encerrada-2-conteudo">
+                    <h4>Pergunta encerrada 2</h4>
+                </div>
+                <div class="collapse" id="pergunta-encerrada-2-conteudo">
+                    <div class="card-body text-center">
+                        <h4>Para onde você já viajou?</h4>
+                        <span class="text-muted">Você é alguém que gosta de conhecer novos lugares, pessoas
+                            e culturas? Caso a resposta seja sim, responda onde você já visitou!</span>
+                        <br>
+                        <span class="text-muted"><b>Formulário de resposta longa OU resposta
+                                curta</b></span>
+                        <hr>
+                        <span class="text-muted">Enviada por: <b>Usuário C</b></span>
+                        <img src="img/cloud_tag_2.png" class="py-2 mx-auto d-block img-fluid" width="300"
+                            height="100">
+                    </div>
+                    <div class="card-footer text-right">
+                        <button class="btn btn-danger btn-sm disabled">Votação encerrada!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

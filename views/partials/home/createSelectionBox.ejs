@@ -1,0 +1,46 @@
+<div class="tab-pane container" id="caixa_selecao">
+	<br>
+	<form action="/selectionBox" method="POST">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="form-group row">
+						<label for="title-text" class="col-form-label">Título:</label>
+						<input type="text" class="form-control" required id="title-text" name="title" placeholder="Insira o título da sua pergunta">
+					</div>
+
+					<div class="form-group row">
+						<label for="message-text" class="col-form-label">Descrição:</label>
+						<textarea class="form-control" required id="message-text" name="description" placeholder="Descreva a pergunta que você deseja fazer"></textarea>
+					</div>
+
+					<div class="form-group row">
+						<label for="date-input" class="col-form-label">Data encerramento:</label>
+						<input class="form-control" required type="date" name="expirationDate" value="2019-08-26" id="example-date-input">
+					</div>
+					
+					<div class="form-group row">
+						<label for="createChoices" class="col-form-label">Criar opção:</label>
+						<button ordem_campo="1" class="btn btn-dark btn-sm criar_campo_extra" type="button">+</button>
+					</div>
+
+					<div class="form-group row">                                                                
+						<div class="fld_wrap" id="fld1">
+							<label for="Choices" class="col-form-label">Opções:</label>
+							<div class="input-group mb-2">
+								<input type="text" class="form-control" name="options" placeholder="Alternativa X" required="required">
+								<div class="input-group-append">
+									<button class="btn btn-danger btn-sm remove_button" type="button">-</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+					<div class="form-group d-flex flex-row-reverse">
+						<button type="submit" class="btn btn-primary">Criar formulário</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,10 @@
+User-agent: Googlebot
+Disallow: /helpers
+Disallow: /middlewares
+Disallow: /models 
+Disallow: /fonts
+Disallow: /helpers
+Disallow: /controllers
+Disallow: /node_modules
+
+Sitemap: https://www.exemplo.com.br/sitemap.xml

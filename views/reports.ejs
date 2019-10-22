@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br" xml:lang="pt-br">
+
+<head>
+    
+	<title></title>
+	<% include ./partials/generalMetaTags %>
+    <% include ./partials/generalLinksScripts %>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <% setOfAnswers.forEach(question => { %>  
+        <h2><%= question.question %></h2>
+        <ul>
+            <% question.answer.forEach(answer => { %>
+                <li><%= answer.answer%></li>
+            <% }) %>
+        </ul>
+        <hr>
+    <% }) %>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<div class="jumbotron jumbotron-fluid text-center m-1">
+    <div class="container">
+        <h2>Seja bem vindo, 
+            <% if(!currentUser) { %>
+                @usuário!
+            <%} else {%>
+                <%= currentUser.username %>
+            <%} %>
+        </h2>
+        <a href="#" class="btn btn-info btn-custom-size" data-toggle="modal" data-target="#criar_formulario_me">Criar formulário</a>
+    </div>
+</div>
