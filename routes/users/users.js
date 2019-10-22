@@ -5,8 +5,8 @@ const express = require('express'),
     methodOverride = require('method-override'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
-    MultipleChoice = require('../.././models/multipleChoice'),
-    MultipleChoiceAnswer = require('../.././models/multipleChoiceAnswer'),
+    Question = require('../.././models/question'),
+    Answer = require('../.././models/Answer'),
     middleware = require("../../middleware");
     var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
@@ -55,7 +55,7 @@ User.findOneAndUpdate({username: req.user.username},{gender: req.body.gender}, f
 
 
 router.get('/home', isLoggedIn, (req, res) => {
-    MultipleChoice.find({}, function(err, result){
+    Question.find({}, function(err, result){
         res.render('home', {'currentUser': req.user, 'questions': result})
     });
 });

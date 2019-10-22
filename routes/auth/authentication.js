@@ -1,15 +1,11 @@
-const mongoose = require('mongoose'), 
-      express = require('express'), 
+const express = require('express'), 
       router = express.Router(),
       bodyParser = require("body-parser"),
       flash = require("connect-flash"),
-      path = require('path'), 
       methodOverride = require('method-override'), 
       passport = require('passport'), 
       LocalStrategy = require("passport-local"),
       User = require('../.././models/user'),
-      MultipleChoice = require('../.././models/multipleChoice'),
-      MultipleChoiceAnswer = require('../.././models/multipleChoiceAnswer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 

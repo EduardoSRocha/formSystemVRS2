@@ -1,8 +1,8 @@
 const express = require('express'),
       router = express.Router(),
       User = require('../.././models/user'),
-      LongText = require('../.././models/longText'),
-      LongTextAnswer = require('../.././models/longTextAnswer'),
+      Question = require('../.././models/question'),
+      Answer = require('../.././models/answer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
@@ -14,27 +14,27 @@ router.use(flash());
 /**Configure global variables */
 router.use(globalenvironment);
 
-/** LongText template route*/
-router.get('/longText', (req, res) => {
+/** Question template route*/
+router.get('/question', (req, res) => {
     //
-    res.render("longText");
+    res.render("question");
   });
 
-/** LongText question create logic*/
-router.post('/longText', (req, res) => {
-//lookup longText using ID
+/** Question question create logic*/
+router.post('/question', (req, res) => {
+//lookup question using ID
     User.findById(req.user._id, function(err, user){
     if(err){
         console.log(err);
         res.redirect("/login");
     } else {
-    LongText.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, longText){
+    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, question){
         if(!err){
-        //add username and id to longText
-        longText.author.id = user._id;
-        longText.author.username = user.username;
-        longText.save();
-        res.redirect('/longText');
+        //add username and id to question
+        question.author.id = user._id;
+        question.author.username = user.username;
+        question.save();
+        res.redirect('/question');
         } else {
         console.log(err);
         res.send(err);
@@ -45,8 +45,8 @@ router.post('/longText', (req, res) => {
 });
 
 /** change title of question */
-router.post("/addLongText/:id", function(req, res){
-LongText.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
     if(err){
         console.log(err);
     } else {
@@ -56,8 +56,8 @@ LongText.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, functio
 })
 
 /** change title of question */
-router.post("/addLongText/:id", function(req, res){
-LongText.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
         if(err){
             console.log(err);
         } else {
@@ -69,13 +69,13 @@ LongText.findByIdAndUpdate({_id: req.params.id},{description: req.body.descripti
 })
 
 /** create answer of multiple questions */
-router.post("/longTextAnswer/:id", function(req, res) {
-LongTextAnswer.create({answer: req.body.answer}, function(err, longTextAnswer){
+router.post("/answer/:id", function(req, res) {
+Answer.create({answer: req.body.answer}, function(err, answer){
     if(!err){
-    longTextAnswer.question.id = req.params.id;
-    longTextAnswer.whoAnswered.id = req.user._id;
-    longTextAnswer.whoAnswered.username = req.user.username;
-    longTextAnswer.save();
+    answer.question.id = req.params.id;
+    answer.whoAnswered.id = req.user._id;
+    answer.whoAnswered.username = req.user.username;
+    answer.save();
     res.json({ success: true });
     } else {
     console.log(err);
@@ -86,8 +86,8 @@ LongTextAnswer.create({answer: req.body.answer}, function(err, longTextAnswer){
 
 /** Answers routes */
 
-router.get("/longTextAnswer", function(req, res){
-LongText.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
+router.get("/answer", function(req, res){
+Question.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
     if(!err) {
     console.log(answers)
     } else { 

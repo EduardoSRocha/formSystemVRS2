@@ -1,12 +1,10 @@
 const express = require('express'),
       router = express.Router(),
       User = require('../.././models/user'),
-      MultipleChoice = require('../.././models/multipleChoice'),
-      MultipleChoiceAnswer = require('../.././models/multipleChoiceAnswer'),
+      Question = require('../.././models/question'),
+      Answer = require('../.././models/answer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
-
-
 
 //configure flash
 const flash = require('connect-flash');
@@ -16,29 +14,29 @@ router.use(flash());
 router.use(globalenvironment);
 
 /** multiple Choice template route*/
-router.get('/multipleChoice', (req, res) => {
+router.get('/question', (req, res) => {
     //
-    res.render("multipleChoice");
+    res.render("question");
   });
 
 /** multiple Choice question create logic*/
-router.post('/multipleChoice', (req, res) => {
-//lookup multipleChoice using ID
+router.post('/question', (req, res) => {
+//lookup question using ID
     User.findById(req.user._id, function(err, user){
     if(err){
         console.log(err);
         res.redirect("/login");
     } else {
-    MultipleChoice.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, multipleChoice){
+    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, question){
         if(!err){
-        //add username and id to multipleChoice
-        multipleChoice.author.id = user._id;
-        multipleChoice.author.username = user.username;
+        //add username and id to question
+        question.author.id = user._id;
+        question.author.username = user.username;
         //add options one by one
         req.body.options.forEach(option => {
-            multipleChoice.options.push(option);
+            question.options.push(option);
         });
-        multipleChoice.save();
+        question.save();
         res.redirect('/home');
         } else {
         console.log(err);
@@ -50,24 +48,24 @@ router.post('/multipleChoice', (req, res) => {
 });
 
 /** add option to multiple Choice question*/
-router.post("/addmultipleChoice/:id", function(req, res){
-MultipleChoice.findById({_id: req.params.id}, function(err, multipleChoice){
+router.post("/addquestion/:id", function(req, res){
+Question.findById({_id: req.params.id}, function(err, question){
     if(err) 
     {
     console.log(err);
     } 
     else 
     {
-    multipleChoice.options.push(req.body.option);
-    multipleChoice.save();
+    question.options.push(req.body.option);
+    question.save();
     res.json({ success: true });
     }
 })
 })
 
 /** change title of question */
-router.post("/addMultipleChoice/:id", function(req, res){
-MultipleChoice.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
     if(err){
         console.log(err);
     } else {
@@ -77,8 +75,8 @@ MultipleChoice.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, f
 })
 
 /** change title of question */
-router.post("/addMultipleChoice/:id", function(req, res){
-MultipleChoice.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
     if(err){
         console.log(err);
     } else {
@@ -88,13 +86,13 @@ MultipleChoice.findByIdAndUpdate({_id: req.params.id},{description: req.body.des
 })
 
 /** create answer of multiple questions */
-router.post("/multipleChoiceAnswer/:id", function(req, res) {
-MultipleChoiceAnswer.create({answer: req.body.answer}, function(err, multipleChoiceAnswer){
+router.post("/answer/:id", function(req, res) {
+Answer.create({answer: req.body.answer}, function(err, answer){
     if(!err){
-    multipleChoiceAnswer.question.id = req.params.id;
-    multipleChoiceAnswer.whoAnswered.id = req.user._id;
-    multipleChoiceAnswer.whoAnswered.username = req.user.username;
-    multipleChoiceAnswer.save();
+    answer.question.id = req.params.id;
+    answer.whoAnswered.id = req.user._id;
+    answer.whoAnswered.username = req.user.username;
+    answer.save();
     res.redirect('/home');
     } else {
     console.log(err);
@@ -105,8 +103,8 @@ MultipleChoiceAnswer.create({answer: req.body.answer}, function(err, multipleCho
 
 /** Answers routes */
 
-router.get("/multipleChoiceAnswer", function(req, res){
-MultipleChoice.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
+router.get("/answer", function(req, res){
+Question.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
     if(!err) {
     console.log(answers)
     } else { 

@@ -1,8 +1,8 @@
 const express = require('express'),
       router = express.Router(),
       User = require('../.././models/user'),
-      SelectionBox = require('../.././models/selectionBox'),
-      SelectionBoxAnswer = require('../.././models/selectionBoxAnswer'),
+      Question = require('../.././models/question'),
+      Answer = require('../.././models/answer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
@@ -15,30 +15,30 @@ router.use(flash());
 router.use(globalenvironment);
 
 /** Selection Box template route*/
-router.get('/selectionBox', (req, res) => {
+router.get('/question', (req, res) => {
     //
-    res.render("selectionBox");
+    res.render("question");
   });
 
 /** Selection Box question create logic*/
-router.post('/selectionBox', (req, res) => {
-//lookup selectionBox using ID
+router.post('/question', (req, res) => {
+//lookup question using ID
     User.findById(req.user._id, function(err, user){
     if(err){
         console.log(err);
         res.redirect("/login");
     } else {
-    SelectionBox.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, selectionBox){
+    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, question){
         if(!err){
-        //add username and id to selectionBox
-        selectionBox.author.id = user._id;
-        selectionBox.author.username = user.username;
+        //add username and id to question
+        question.author.id = user._id;
+        question.author.username = user.username;
         //add options one by one
         req.body.options.forEach(option => {
-            selectionBox.options.push(option);
+            question.options.push(option);
         });
-        selectionBox.save();
-        res.redirect('/selectionBox/');
+        question.save();
+        res.redirect('/question/');
         } else {
         console.log(err);
         res.send(err);
@@ -49,24 +49,24 @@ router.post('/selectionBox', (req, res) => {
 });
 
 /** add option to Selection Box question*/
-router.post("/addselectionBox/:id", function(req, res){
-SelectionBox.findById({_id: req.params.id}, function(err, selectionBox){
+router.post("/addquestion/:id", function(req, res){
+Question.findById({_id: req.params.id}, function(err, question){
     if(err) 
     {
     console.log(err);
     } 
     else 
     {
-    selectionBox.options.push(req.body.option);
-    selectionBox.save();
+    question.options.push(req.body.option);
+    question.save();
     res.json({ success: true });
     }
 })
 })
 
 /** change title of question */
-router.post("/addSelectionBox/:id", function(req, res){
-SelectionBox.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
     if(err){
         console.log(err);
     } else {
@@ -76,8 +76,8 @@ SelectionBox.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, fun
 })
 
 /** change title of question */
-router.post("/addSelectionBox/:id", function(req, res){
-SelectionBox.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
     if(err){
         console.log(err);
     } else {
@@ -87,13 +87,13 @@ SelectionBox.findByIdAndUpdate({_id: req.params.id},{description: req.body.descr
 })
 
 /** create answer of multiple questions */
-router.post("/selectionBoxAnswer/:id", function(req, res) {
-SelectionBoxAnswer.create({answer: req.body.answer}, function(err, selectionBoxAnswer){
+router.post("/answer/:id", function(req, res) {
+Answer.create({answer: req.body.answer}, function(err, answer){
         if(!err){
-            selectionBoxAnswer.question.id = req.params.id;
-            selectionBoxAnswer.whoAnswered.id = req.user._id;
-            selectionBoxAnswer.whoAnswered.username = req.user.username;
-            selectionBoxAnswer.save();
+            answer.question.id = req.params.id;
+            answer.whoAnswered.id = req.user._id;
+            answer.whoAnswered.username = req.user.username;
+            answer.save();
             res.json({ success: true });
         } else {
             console.log(err);
@@ -102,8 +102,8 @@ SelectionBoxAnswer.create({answer: req.body.answer}, function(err, selectionBoxA
 })
 
 /** Answers routes */
-router.get("/selectionBoxAnswer", function(req, res){
-SelectionBox.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
+router.get("/answer", function(req, res){
+Question.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
         if(!err) {
         console.log(answers)
         } else { 

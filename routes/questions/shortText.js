@@ -1,8 +1,8 @@
 const express = require('express'),
       router = express.Router(),
       User = require('../.././models/user'),
-      ShortText = require('../.././models/shortText'),
-      ShortTextAnswer = require('../.././models/shortTextAnswer'),
+      Question = require('../.././models/question'),
+      Answer = require('../.././models/answer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
@@ -14,25 +14,25 @@ router.use(flash());
 router.use(globalenvironment);
 
 /** Short Text template route*/
-router.get('/shortText', (req, res) => {
+router.get('/question', (req, res) => {
     //
-    res.render("shortText");
+    res.render("question");
   });
 
 /** Short Text question create logic*/
-router.post('/shortText', (req, res) => {
-//lookup shortText using ID
+router.post('/question', (req, res) => {
+//lookup question using ID
     User.findById(req.user._id, function(err, user){
     if(err){
         console.log(err);
         res.redirect("/login");
     } else {
-    ShortText.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, shortText){
+    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, question){
         if(!err){
-            //add username and id to shortText
-            shortText.author.id = user._id;
-            shortText.author.username = user.username;
-            shortText.save();
+            //add username and id to question
+            question.author.id = user._id;
+            question.author.username = user.username;
+            question.save();
             res.redirect('/home');
         } else {
             console.log(err);
@@ -44,8 +44,8 @@ router.post('/shortText', (req, res) => {
 });
 
 /** change title of question */
-router.post("/addShortText/:id", function(req, res){
-ShortText.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
     if(err){
         console.log(err);
     } else {
@@ -55,8 +55,8 @@ ShortText.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, functi
 })
 
 /** change title of question */
-router.post("/addShortText/:id", function(req, res){
-ShortText.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
     if(err){
         console.log(err);
     } else {
@@ -66,13 +66,13 @@ ShortText.findByIdAndUpdate({_id: req.params.id},{description: req.body.descript
 })
 
 /** create answer of multiple questions */
-router.post("/shortTextAnswer/:id", function(req, res) {
-ShortTextAnswer.create({answer: req.body.answer}, function(err, shortTextAnswer){
+router.post("/answer/:id", function(req, res) {
+Answer.create({answer: req.body.answer}, function(err, answer){
     if(!err){
-    shortTextAnswer.question.id = req.params.id;
-    shortTextAnswer.whoAnswered.id = req.user._id;
-    shortTextAnswer.whoAnswered.username = req.user.username;
-    shortTextAnswer.save();
+    answer.question.id = req.params.id;
+    answer.whoAnswered.id = req.user._id;
+    answer.whoAnswered.username = req.user.username;
+    answer.save();
     res.json({ success: true });
     } else {
     console.log(err);
@@ -83,8 +83,8 @@ ShortTextAnswer.create({answer: req.body.answer}, function(err, shortTextAnswer)
 
 /** Answers routes */
 
-router.get("/shortTextAnswer", function(req, res){
-ShortText.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
+router.get("/answer", function(req, res){
+Question.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
     if(!err) {
     console.log(answers)
     } else { 

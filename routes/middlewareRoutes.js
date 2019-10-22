@@ -19,5 +19,6 @@ router.use(shortText);
 router.use(longText);
 router.use(numeric);
 router.use(selectionBox);
+router.use(basicRoutes);
 
 module.exports = router;

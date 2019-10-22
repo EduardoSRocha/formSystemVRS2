@@ -1,8 +1,8 @@
 const express = require('express'),
       router = express.Router(),
       User = require('../.././models/user'),
-      Numeric = require('../.././models/numeric'),
-      NumericAnswer = require('../.././models/numericAnswer'),
+      Question = require('../.././models/question'),
+      Answer = require('../.././models/answer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
@@ -13,26 +13,26 @@ router.use(flash());
 /**Configure global variables */
 router.use(globalenvironment);
 
-/** Numeric template route*/
-router.get('/numeric', (req, res) => {
+/** Question template route*/
+router.get('/question', (req, res) => {
     //
-    res.render("numeric");
+    res.render("question");
   });
 
-/** Numeric question create logic*/
-router.post('/numeric', (req, res) => {
-//lookup numeric using ID
+/** Question question create logic*/
+router.post('/question', (req, res) => {
+//lookup question using ID
     User.findById(req.user._id, function(err, user){
     if(err){
         console.log(err);
         res.redirect("/login");
     } else {
-    Numeric.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, numeric){
+    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, question){
         if(!err){
-        //add username and id to numeric
-        numeric.author.id = user._id;
-        numeric.author.username = user.username;
-        res.redirect('/numeric/');
+        //add username and id to question
+        question.author.id = user._id;
+        question.author.username = user.username;
+        res.redirect('/question/');
         } else {
         console.log(err);
         res.send(err);
@@ -42,25 +42,25 @@ router.post('/numeric', (req, res) => {
 }); 
 });
 
-/** add option to Numeric question*/
-router.post("/addnumeric/:id", function(req, res){
-Numeric.findById({_id: req.params.id}, function(err, numeric){
+/** add option to Question question*/
+router.post("/addquestion/:id", function(req, res){
+Question.findById({_id: req.params.id}, function(err, question){
     if(err) 
     {
     console.log(err);
     } 
     else 
     {
-    numeric.options.push(req.body.option);
-    numeric.save();
+    question.options.push(req.body.option);
+    question.save();
     res.json({ success: true });
     }
 })
 })
 
 /** change title of question */
-router.post("/addNumeric/:id", function(req, res){
-Numeric.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
     if(err){
         console.log(err);
     } else {
@@ -70,8 +70,8 @@ Numeric.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function
 })
 
 /** change title of question */
-router.post("/addNumeric/:id", function(req, res){
-Numeric.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
+router.post("/addQuestion/:id", function(req, res){
+Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
     if(err){
         console.log(err);
     } else {
@@ -81,13 +81,13 @@ Numeric.findByIdAndUpdate({_id: req.params.id},{description: req.body.descriptio
 })
 
 /** create answer of multiple questions */
-router.post("/numericAnswer/:id", function(req, res) {
-NumericAnswer.create({answer: req.body.answer}, function(err, numericAnswer){
+router.post("/answer/:id", function(req, res) {
+Answer.create({answer: req.body.answer}, function(err, answer){
     if(!err){
-    numericAnswer.question.id = req.params.id;
-    numericAnswer.whoAnswered.id = req.user._id;
-    numericAnswer.whoAnswered.username = req.user.username;
-    numericAnswer.save();
+    answer.question.id = req.params.id;
+    answer.whoAnswered.id = req.user._id;
+    answer.whoAnswered.username = req.user.username;
+    answer.save();
     res.json({ success: true });
     } else {
     console.log(err);
@@ -98,8 +98,8 @@ NumericAnswer.create({answer: req.body.answer}, function(err, numericAnswer){
 
 /** Answers routes */
 
-router.get("/numericAnswer", function(req, res){
-Numeric.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
+router.get("/answer", function(req, res){
+Question.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
     if(!err) {
     console.log(answers)
     } else { 

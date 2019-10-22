@@ -1,18 +1,12 @@
 /** application configuration */
-const mongoose = require('mongoose'),
-    express = require('express'),
-    bodyParser = require("body-parser"), 
-    seoConfigs = require("../middleware/seoConfigs"), 
-    path = require('path'), 
-    methodOverride = require('method-override'), 
-    passport = require('passport'), 
-    LocalStrategy = require("passport-local"),
-    User = require('../models/user'),
-    MultipleChoice = require('../models/multipleChoice'),
-    MultipleChoiceAnswer = require('../models/multipleChoiceAnswer'),
-    middlewareRoutes = require('../routes/middlewareRoutes'),
-    router = express.Router();
-    
+const express = require('express'),
+      bodyParser = require("body-parser"), 
+      methodOverride = require('method-override'), 
+      passport = require('passport'), 
+      LocalStrategy = require("passport-local"),
+      User = require('../models/user'),
+      router = express.Router();
+      
 /** bodyparser configuration */
 router.use(bodyParser.urlencoded({extended: true}));
                           

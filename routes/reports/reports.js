@@ -1,8 +1,8 @@
 const express = require('express'),
       router = express.Router(),
       User = require('../.././models/user'),
-      MultipleChoice = require('../.././models/multipleChoice'),
-      MultipleChoiceAnswer = require('../.././models/multipleChoiceAnswer'),
+      Question = require('../.././models/question'),
+      Answer = require('../.././models/answer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
@@ -15,31 +15,31 @@ router.use(globalenvironment);
 
 router.get('/reports', function(req, res){
     /**função para pegar todas as respostas */
-    MultipleChoice.find({}).exec(async function(err, AllMultipleChoice){
+    Question.find({}).exec(async function(err, AllQuestion){
       //
       let conjuntoDeQuestoes = [];
       if(!err) {
-        //console.log(AllMultipleChoiceAnswers);
+        //console.log(AllAnswers);
         var conjuntoDeRespostas;
         var indiceConjuntoDeQuestoes = 0;
-        await MultipleChoiceAnswer.find().populate({ path: '_question', select: 'id' }).exec(async function(err, AllMultipleChoiceAnswers){
-          var tempMultipleChoice; 
-          AllMultipleChoice.forEach(async multipleChoice => {
+        await Answer.find().populate({ path: '_question', select: 'id' }).exec(async function(err, AllAnswers){
+          var tempQuestion; 
+          AllQuestion.forEach(async question => {
             conjuntoDeRespostas = [];
-            tempMultipleChoice = multipleChoice;
+            tempQuestion = question;
             if(!err) {
               var indiceConjuntoDeRespostas = 0;
-              AllMultipleChoiceAnswers.forEach(async Answer => {
+              AllAnswers.forEach(async Answer => {
                 //Converter os Ids para string e comparar os Ids 
-                if(String(Answer.question.id) == String(multipleChoice._id)){
-                  console.log(String(Answer.question.id), String(multipleChoice._id));
+                if(String(Answer.question.id) == String(question._id)){
+                  console.log(String(Answer.question.id), String(question._id));
                   conjuntoDeRespostas[indiceConjuntoDeRespostas] = Answer;
                 }
                 indiceConjuntoDeRespostas++;
               })
   
               conjuntoDeQuestoes[indiceConjuntoDeQuestoes] = {
-                question: tempMultipleChoice.question,
+                question: tempQuestion.question,
                 answer: conjuntoDeRespostas
               };
               indiceConjuntoDeQuestoes++;
