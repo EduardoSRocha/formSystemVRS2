@@ -12,6 +12,13 @@ let Answer = new mongoose.Schema({
      },
     answerString: String,
     answerNumber: Number,
+    ResponseStart: Number,
+    responseTime: Number,
+    responseTimebetween: [
+        {
+            type: Number
+        }
+    ],
     optionsText: [
         {
             type: String
