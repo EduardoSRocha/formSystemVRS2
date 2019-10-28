@@ -76,12 +76,4 @@ router.get("/logout", function(req, res) {
     res.redirect("/");
 })
 
-function isLoggedIn(req, res, next) {
-  if(req.isAuthenticated()){
-    return next;
-  }
-  req.flash("success", "Para acessar essa página, por favor, faça login")
-  res.redirect("/");
-}
-
 module.exports = router;
