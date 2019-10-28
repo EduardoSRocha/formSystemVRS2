@@ -2,7 +2,6 @@ const express = require('express'),
       router = express.Router(),
       User = require('../.././models/user'),
       Question = require('../.././models/question'),
-      Answer = require('../../models/answer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
@@ -77,7 +76,7 @@ router.post("/answer/:id", function(req, res) {
         answer.whoAnswered.username = req.user.username;
         answer.save();
         res.json({ success: true });
-        } else {s
+        } else {
         console.log(err);
         }
     });
@@ -95,5 +94,6 @@ router.get("/answer", function(req, res){
         }
     });
 });
+
   
 module.exports = router;

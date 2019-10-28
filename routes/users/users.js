@@ -4,16 +4,13 @@ const express = require('express'),
     User = require('../.././models/user'),
     methodOverride = require('method-override'),
     passport = require('passport'),
+    Answer = require('../../models/answer'),
     LocalStrategy = require('passport-local'),
     Question = require('../.././models/question'),
-    Answer = require('../.././models/Answer'),
     middleware = require("../../middleware");
     var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
     
-//configure flash
-const flash = require('connect-flash');
-router.use(flash());
 
 /** bodyparser configuration */
 router.use(bodyParser.urlencoded({extended: true}));
@@ -33,6 +30,14 @@ router.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
+//configure flash
+const flash = require('connect-flash');
+router.use(flash());
+
+/**Configure global variables */
+router.use(globalenvironment);
 
 router.get('/perfil', isLoggedIn, (req, res) => { 
       res.render('profile', {'currentUser': req.user});
@@ -54,9 +59,9 @@ User.findOneAndUpdate({username: req.user.username},{gender: req.body.gender}, f
 })
 
 
-router.get('/home', isLoggedIn, (req, res) => {
+router.get('/home', (req, res) => {
     Question.find({}, function(err, result){
-        res.render('home', {'currentUser': req.user, 'questions': result})
+        res.render('home', {'questions': result})
     });
 });
 

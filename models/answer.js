@@ -36,6 +36,6 @@ let Answer = new mongoose.Schema({
         },
         username: String
     }
-});
+})
 
-module.exports = mongoose.model("Answer", Answer);
+module.exports = mongoose.model("answer", Answer);

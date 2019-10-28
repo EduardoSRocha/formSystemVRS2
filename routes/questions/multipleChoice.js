@@ -2,7 +2,7 @@ const express = require('express'),
       router = express.Router(),
       User = require('../.././models/user'),
       Question = require('../.././models/question'),
-      Answer = require('../.././models/answer'),
+      Answer = require('../../models/answer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
@@ -12,12 +12,6 @@ router.use(flash());
 
 /**Configure global variables */
 router.use(globalenvironment);
-
-/** multiple Choice template route*/
-router.get('/question', (req, res) => {
-    //
-    res.render("question");
-  });
 
 /** multiple Choice question create logic*/
 router.post('/question', (req, res) => {
@@ -113,15 +107,4 @@ Question.find({}).populate("_question").populate("_whoAnswered").exec( function(
 });
 });
 
-//** REPORTS ANSWER */
-  
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()){
-      return next;
-    }
-    req.flash("success", "Para acessar essa página, por favor, faça login")
-    res.redirect("/");
-  }
-  
-  
 module.exports = router;

@@ -75,15 +75,5 @@ router.get('/reports', function(req, res){
 router.get('/ranking', isLoggedIn, (req, res) => {
     res.render('ranking', { message: req.flash("error")})
   });
-
-  
-  function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()){
-      return next;
-    }
-    req.flash("success", "Para acessar essa página, por favor, faça login")
-    res.redirect("/");
-  }
-  
   
 module.exports = router;

@@ -26,4 +26,4 @@ let Question = new mongoose.Schema({
     ]
 });
 
-module.exports = mongoose.model("Question", Question);
+module.exports = mongoose.model("question", Question);

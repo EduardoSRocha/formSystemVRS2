@@ -2,7 +2,7 @@ const express = require('express'),
       router = express.Router(),
       User = require('../.././models/user'),
       Question = require('../.././models/question'),
-      Answer = require('../.././models/answer'),
+      Answer = require('../../models/answer'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
@@ -107,14 +107,5 @@ Question.find({}).populate("_question").populate("_whoAnswered").exec( function(
     }
 });
 });
-
-//** REPORTS ANSWER */
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()){
-      return next;
-    }
-    req.flash("success", "Para acessar essa página, por favor, faça login")
-    res.redirect("/");
-  }
   
 module.exports = router;

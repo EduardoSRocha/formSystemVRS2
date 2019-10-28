@@ -11,12 +11,7 @@ const mongoose = require('mongoose'),
       LocalStrategy = require("passport-local"),
       User = require('./models/user'),
       middlewareRoutes = require('./routes/middlewareRoutes'),
-      dotenv = require('dotenv');
-      MultipleChoice = require('./models/multipleChoice'),
-      Numeric = require('./models/numeric'),
-      SelectionBox = require('./models/selectionBox'),
-      ShortText = require('./models/shortText'),
-      LongText = require('./models/longText'),
+      dotenv = require('dotenv'),
       middlewareRoutes = require('./routes/middlewareRoutes');
 
 //configure dotenv
