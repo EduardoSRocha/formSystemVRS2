@@ -27,7 +27,7 @@ router.post('/question', (req, res) => {
         console.log(err);
         res.redirect("/login");
     } else {
-    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, question){
+    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title,  type: "shortext", creationDate: Date.now(), expirationDate: req.body.expirationDate}, function(err, question){
         if(!err){
             //add username and id to question
             question.author.id = user._id;
@@ -44,7 +44,7 @@ router.post('/question', (req, res) => {
 });
 
 /** change title of question */
-router.post("/addQuestion/:id", function(req, res){
+router.post("/updateQuestion/changeTitle/:id", function(req, res){
 Question.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
     if(err){
         console.log(err);
@@ -55,7 +55,7 @@ Question.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, functio
 })
 
 /** change title of question */
-router.post("/addQuestion/:id", function(req, res){
+router.post("/updateQuestion/changedescription/:id", function(req, res){
 Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
     if(err){
         console.log(err);
@@ -64,6 +64,17 @@ Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.descripti
     }
     })
 })
+
+/** change title of question */
+router.post("/updateQuestion/changeExpirationDate/:id", function(req, res){
+    Question.findByIdAndUpdate({_id: req.params.id},{expirationDate: req.body.expirationDate}, function(err){
+        if(err){
+            console.log(err);
+        } else {
+            res.json({ success: true });
+        }
+        })
+    })
 
 /** create answer of multiple questions */
 router.post("/answer/:id", function(req, res) {

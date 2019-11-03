@@ -59,7 +59,7 @@ app.use('/css', express.static(__dirname + '/public/css'));
 app.all('*', function(req, res) {
   if(!req.user){
       req.flash("error", "404 - page not found")
-      res.redirect("/login")
+      res.redirect("/")
   } else {
       req.flash("error", "404 - page not found")
       res.redirect("/home")

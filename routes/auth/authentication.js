@@ -56,11 +56,13 @@ router.post('/register', function(req, res){
   })
 })
 
-
+router.get('/', (req, res) => {
+  res.render("index");
+});
 
 /** Login Routes */
 router.get('/login', (req, res) => {
-  res.render("login2");
+  res.redirect('/');
 });
 
 router.post("/login", passport.authenticate("local", {
