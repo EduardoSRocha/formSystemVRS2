@@ -60,7 +60,7 @@ router.post('/register', function(req, res){
 
 /** Login Routes */
 router.get('/login', (req, res) => {
-  res.render("login2");
+  res.render("login");
 });
 
 router.post("/login", passport.authenticate("local", {
