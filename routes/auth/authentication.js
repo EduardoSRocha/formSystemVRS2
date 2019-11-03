@@ -62,7 +62,11 @@ router.get('/', (req, res) => {
 
 /** Login Routes */
 router.get('/login', (req, res) => {
+<<<<<<< HEAD
   res.redirect('/');
+=======
+  res.render("login");
+>>>>>>> be63d8ca2955f22ee8a3addcaea1f73f79a6a385
 });
 
 router.post("/login", passport.authenticate("local", {

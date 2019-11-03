@@ -14,10 +14,10 @@
 			<!-- Não usuário -->
 			<% if (!currentUser || currentUser == undefined){ %>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="modal" data-target="#registrar"><span class="fas fa-user"></span>Registrar</a>
+					<a class="nav-link" data-toggle="modal" data-target="#registrar"><span class="fas fa-user"></span> Registrar</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/login" ><span class="fas fa-sign-in-alt"></span>Entrar</a>
+					<a class="nav-link" data-toggle="modal" data-target="#entrar"><span class="fas fa-sign-in-alt"></span> Entrar</a>
 				</li>
 			<!-- Usuário logado -->
 			<% } else { %>
