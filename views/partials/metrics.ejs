@@ -1,0 +1,21 @@
+<script>
+    var ResponseStart;
+    $(window).ready(function () {
+        ResponseStart = new Date().getTime();
+    });
+
+    $(window).on('beforeunload', function () {
+        var ResponseEnd = new Date().getTime();
+        var ResponseTime = (ResponseEnd - ResponseStart) / 1000;
+        // faxer qualquer coisa antes de fechar
+    });        
+</script>
+
+<script>
+    i = 0;
+    $(document).ready(function(){
+      $("input").keypress(function(){
+        $("span").text(i += 1);
+      });
+    });
+</script>

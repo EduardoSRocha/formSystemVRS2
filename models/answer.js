@@ -14,6 +14,7 @@ let Answer = new mongoose.Schema({
     answerNumber: Number,
     ResponseStart: Number,
     responseTime: Number,
+    ResponseEnd: Number,
     responseTimebetween: [
         {
             type: Number
