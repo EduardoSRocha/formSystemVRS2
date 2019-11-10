@@ -14,7 +14,7 @@ router.use(flash());
 router.use(globalenvironment);
 
 /** multiple Choice question create logic*/
-router.post('/question', (req, res) => {
+router.post('/multipleChoice', (req, res) => {
 //lookup question using ID
     User.findById(req.user._id, function(err, user){
     if(err){

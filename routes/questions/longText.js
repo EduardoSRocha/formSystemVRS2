@@ -14,14 +14,8 @@ router.use(flash());
 /**Configure global variables */
 router.use(globalenvironment);
 
-/** Question template route*/
-router.get('/longText', (req, res) => {
-    //
-    res.render("longText");
-  });
-
 /** Question question create logic*/
-router.post('/question', (req, res) => {
+router.post('/longText', (req, res) => {
 //lookup question using ID
     User.findById(req.user._id, function(err, user){
     if(err){

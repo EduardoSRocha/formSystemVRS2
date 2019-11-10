@@ -13,14 +13,8 @@ router.use(flash());
 /**Configure global variables */
 router.use(globalenvironment);
 
-/** Question template route*/
-router.get('/question', (req, res) => {
-    //
-    res.render("question");
-  });
-
 /** Question question create logic*/
-router.post('/question', (req, res) => {
+router.post('/numeric', (req, res) => {
 //lookup question using ID
     User.findById(req.user._id, function(err, user){
     if(err){

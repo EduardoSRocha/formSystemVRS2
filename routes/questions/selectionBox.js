@@ -6,7 +6,6 @@ const express = require('express'),
       middleware = require("../../middleware");
       var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
-
 //configure flash
 const flash = require('connect-flash')
 router.use(flash());
@@ -14,14 +13,8 @@ router.use(flash());
 /**Configure global variables */
 router.use(globalenvironment);
 
-/** Selection Box template route*/
-router.get('/question', (req, res) => {
-    //
-    res.render("question");
-  });
-
 /** Selection Box question create logic*/
-router.post('/question', (req, res) => {
+router.post('/selectionBox', (req, res) => {
 //lookup question using ID
     User.findById(req.user._id, function(err, user){
     if(err){
