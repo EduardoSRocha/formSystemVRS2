@@ -58,9 +58,8 @@ User.findOneAndUpdate({username: req.user.username},{gender: req.body.gender}, f
 })
 })
 
-
 router.get('/home', (req, res) => {
-    Question.find({}, function(err, result){
+    Question.find({ author: {$not:{currentUser}}}, function(err, result){
         res.render('home', {'questions': result})
     });
 });
