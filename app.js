@@ -13,6 +13,8 @@ const mongoose = require('mongoose'),
       middlewareRoutes = require('./routes/middlewareRoutes'),
       dotenv = require('dotenv'),
       middlewareRoutes = require('./routes/middlewareRoutes');
+      middleware = require("./middleware");
+    var {isLoggedIn, globalenvironment} = middleware; // destructuring assignment
 
 //configure dotenv
 dotenv.config();
@@ -22,18 +24,13 @@ app.use(middlewareRoutes);
 
 //configure flash
 app.use(flash());
+app.use(globalenvironment);
 
 /** engine to config for dynamic pages */
 app.set("view engine", "ejs");
 
 /**Seo Configuration */
 seoConfigs(app)
-
-app.use(function(req, res, next){
-  res.locals.currentUser = req.user;
-  res.locals.message = req.flash("error");
-  next();
-}); 
 
 /** assign mongoose promise library and connect to database */
 mongoose.Promise = global.Promise;
@@ -59,11 +56,11 @@ app.use('/css', express.static(__dirname + '/public/css'));
 
 app.all('*', function(req, res) {
   if(!req.user){
-      req.flash("error", "404 - page not found")
-      res.redirect("/login")
+      req.flash("error", "Usuário não autenticado")
+      res.render("login");
   } else {
       req.flash("error", "404 - page not found")
-      res.redirect("/home")
+      res.render("home");
   }
 });
 

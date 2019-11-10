@@ -13,21 +13,6 @@
 	<!-- Jumbotron -->
 	<div class="jumbotron jumbotron-fluid text-center m-1">
 		<div class="container">
-			<div class="col">
-				<p><% if(error == undefined){%>
-					error indefinido
-				<% } else{ %>
-					<%= error %>
-				<% } %>
-				</p>
-				<p>
-				<% if(success == undefined){%>
-					success indefinido
-				<% } else{ %>
-					<%= success %>
-				<% } %>
-				</p>
-			</div>
 			<div class="row">
 				<div class="col-6">
 					<h4>Primeira vez aqui?</h4>
@@ -47,7 +32,6 @@
 		</div>
 	</footer>
 
-	<% include ./partials/login/registrar %>
-	<% include ./partials/login/entrar %>
+	
 </body>
 </html>

@@ -27,7 +27,8 @@ router.post('/question', (req, res) => {
         console.log(err);
         res.redirect("/login");
     } else {
-    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title }, function(err, question){
+        
+    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title,  type: "numeric", creationDate: Date.now(), expirationDate: req.body.expirationDate}, function(err, question){
         if(!err){
         //add username and id to question
         question.author.id = user._id;
@@ -59,7 +60,7 @@ Question.findById({_id: req.params.id}, function(err, question){
 })
 
 /** change title of question */
-router.post("/addQuestion/:id", function(req, res){
+router.post("/updateQuestion/changeTitle/:id", function(req, res){
 Question.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, function(err){
     if(err){
         console.log(err);
@@ -70,7 +71,7 @@ Question.findByIdAndUpdate({_id: req.params.id},{title: req.body.title}, functio
 })
 
 /** change title of question */
-router.post("/addQuestion/:id", function(req, res){
+router.post("/updateQuestion/changeDescription:id", function(req, res){
 Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.description}, function(err){
     if(err){
         console.log(err);
@@ -80,7 +81,19 @@ Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.descripti
     })
 })
 
-/** create answer of multiple questions */
+
+/** change title of question */
+router.post("/updateQuestion/changeExpirationDate:id", function(req, res){
+    Question.findByIdAndUpdate({_id: req.params.id},{expirationDate: req.body.expirationDate}, function(err){
+        if(err){
+            console.log(err);
+        } else {
+            res.json({ success: true });
+        }
+        })
+    })
+    
+/** create answer of numeric */
 router.post("/answer/:id", function(req, res) {
 Answer.create({answer: req.body.answer}, function(err, answer){
     if(!err){
