@@ -1,0 +1,31 @@
+<div class="modal fade" id="criar_formulario_me" tabindex="-1" role="dialog" aria-labelledby="CriandoFormulario" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CriandoFormulario">Criando formulário</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">		
+                <div class="row">
+                    <!-- CATEGORIAS DE CRIAÇÃO -->
+                    <% include ./formTypes/createCategories %>
+                </div>
+                <hr>
+                <div class="tab-content">
+                    <!-- MULTIPLA ESCOLHA -->
+                    <% include ./formTypes/createMultipleChoice %>
+                    <!-- CAIXAS DE SELEÇÃO -->
+                    <% include ./formTypes/createSelectionbox %>
+                    <!-- TEXTO CURTO -->
+                    <% include ./formTypes/createShortText %>
+                    <!-- RESPOSTA LONGA -->
+                    <% include ./formTypes/createLongText %>
+                    <!-- RESPOSTA NUMÉRICA -->
+                    <% include ./formTypes/createNumeric %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

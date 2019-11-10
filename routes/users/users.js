@@ -40,9 +40,13 @@ router.use(flash());
 router.use(globalenvironment);
 
 router.get('/perfil', isLoggedIn, (req, res) => { 
-      res.render('profile', {'currentUser': req.user});
-  });
-  
+    res.render('profile', {'currentUser': req.user});
+});
+
+// TO-DO: FAZER UMA VERIFICAÇÃO SE O USUÁRIO É ADMINISTRADOR
+router.get('/dashboard', isLoggedIn, (req, res) => { 
+    res.render('dashboard', {'currentUser': req.user});
+});
   
 /** Updates User */
 router.post("/updateInfos", function(req, res){
@@ -59,7 +63,7 @@ User.findOneAndUpdate({username: req.user.username},{gender: req.body.gender}, f
 })
 
 
-router.get('/home', (req, res) => {
+router.get('/home', isLoggedIn, (req, res) => {
     Question.find({}, function(err, result){
         res.render('home', {'questions': result})
     });

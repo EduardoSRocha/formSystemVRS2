@@ -13,10 +13,7 @@
 	<!-- Jumbotron -->
 	<% include ./partials/home/jumbotron %>
 	<!-- Categories -->
-	<% include ./partials/home/categories %>
-	<!-- RESPOSTA Register -->
-	<% include ./login %>
-
+	<% include ./partials/home/categories %>	
 	<!-- Seleção de formulários -->
 	<div class="container">
 		<div class="tab-content">
@@ -37,38 +34,7 @@
 
 	<!-- Modal - Criar formulário -->
 	<div class="container">
-		<div class="modal fade" id="criar_formulario_me" tabindex="-1" role="dialog" aria-labelledby="CriandoFormulario"
-			aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="CriandoFormulario">Criando formulário</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">		
-						<div class="row">
-							<!-- CATEGORIAS DE CRIAÇÃO -->
-							<% include ./partials/home/createCategories %>
-						</div>
-						<hr>
-						<div class="tab-content">
-							<!-- MULTIPLA ESCOLHA -->
-							<% include ./partials/home/createMultipleChoice %>
-							<!-- CAIXAS DE SELEÇÃO -->
-							<% include ./partials/home/createSelectionbox %>
-							<!-- TEXTO CURTO -->
-							<% include ./partials/home/createShortText %>
-							<!-- RESPOSTA LONGA -->
-							<% include ./partials/home/createLongText %>
-							<!-- RESPOSTA NUMÉRICA -->
-							<% include ./partials/home/createNumeric %>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<% include ./partials/home/createForm %>
 		<!-- DENUNCIAR FORMULÁRIO -->
 		<% include ./partials/home/reports %>
 	</div>

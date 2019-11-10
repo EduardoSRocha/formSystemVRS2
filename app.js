@@ -37,8 +37,8 @@ app.use(function(req, res, next){
 
 /** assign mongoose promise library and connect to database */
 mongoose.Promise = global.Promise;
-//const databaseUri = process.env.MDBL_KEY;
-const databaseUri = process.env.MDBA_KEY || process.env.MDBL_KEY;
+const databaseUri = process.env.MDBL_KEY;
+//const databaseUri = process.env.MDBA_KEY || process.env.MDBL_KEY;
 mongoose.connect(databaseUri, {useMongoCliente: true, useNewUrlParser: true, useCreateIndex: true})
 .then(() => console.log(`Database connected`))
 .catch(err => console.log(`Database connection error: ${err.message}`));
