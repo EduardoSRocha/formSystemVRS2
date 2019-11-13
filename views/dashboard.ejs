@@ -6,106 +6,70 @@
 	<% include ./partials/generalLinksScripts %>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2">
-                <div class="list-group">
-                    <button type="button" class="list-group-item font-weight-bold">
-                        Acesso rápido
-                    </button>
-                    <button type="button" class="list-group-item list-group-item-action">
-                        <a href="/home">Página inicial</a>
-                    </button>
-                    <button type="button" class="list-group-item list-group-item-action" data-toggle="tab" href="#gerenciar_denuncias">
-                        Gerenciar Denúncias
-                    </button>
-                    <button type="button" class="list-group-item list-group-item-action">
-                        <a href="/perfil">Perfil do usuário</a>
-                    </button>
-                    <button type="button" class="list-group-item list-group-item-action" data-toggle="tab" href="#informacoes_extras">
-                        Informações Extras
-                    </button>
-                </div>
-            </div>
-            <div class="col-10">
-                <div class="tab-content">
-                    <div class="tab-pane container" id="gerenciar_denuncias">
-                        <div class="card">
-                            <h5 class="card-title text-center">Gerenciar denúncias</h5>
-                        </div><br>
-                        
-                        
-                        <div class="card-deck">
-                            <div class="card">
-                                <div class="card-header">
-                                    Conteúdo impróprio
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">Descrição da denuncia</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="form-group flex-row">
-                                        <button type="submit" class="btn btn-sm btn-primary">Cancelar</button>
-                                        <button type="submit" class="btn btn-sm btn-primary">Aceitar</button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="card">
-                                <div class="card-header">
-                                    Conteúdo ofensivo
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">Descrição da denuncia</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="form-group flex-row">
-                                        <button type="submit" class="btn btn-sm btn-primary">Cancelar</button>
-                                        <button type="submit" class="btn btn-sm btn-primary">Aceitar</button>
-                                    </div>
-                                </div>
-                            </div>
+	<!-- Includes -->
+    <% include ./partials/navbar %>
+    <% include ./partials/dashboard/visualizar.ejs %>
+    </br></br>
+<!-- Corpo -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="d-flex flex-column align-items-center">
+                        <h5>Acesso rápido</h5>
+                    </div>
+                </li>
+                <li class="list-group-item">Página Inicial</li>
+                <li class="list-group-item">Gerenciar Denúncias</li>
+                <li class="list-group-item">Informações Extras</li>
+            </ul></br>
+        </div>
 
-                            <div class="card">
-                                <div class="card-header">
-                                    Conteúdo sem alternativa correta
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">Descrição da denuncia</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="form-group flex-row">
-                                        <button type="submit" class="btn btn-sm btn-primary">Cancelar</button>
-                                        <button type="submit" class="btn btn-sm btn-primary">Aceitar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        
-
-                            <div class="card">
-                                <div class="card-header">
-                                    Conteúdo difama alguém
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">Descrição da denuncia</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="form-group flex-row">
-                                        <button type="submit" class="btn btn-sm btn-primary">Cancelar</button>
-                                        <button type="submit" class="btn btn-sm btn-primary">Aceitar</button>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="col-sm-10">
+            
+            <ul class="nav nav-pills d-flex justify-content-around">
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#conteudo_improprio" style="background: none; color: rgb(143, 68, 173);">
+                    Conteúdo Impróprio
+                </a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#conteudo_ofensivo" style="background: none; color: rgb(143, 68, 173);">
+                    Conteúdo ofensivo
+                </a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#conteudo_sem_correta" style="background: none; color: rgb(143, 68, 173);">
+                    Conteúdo sem alternativa correta
+                </a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#conteudo_difama" style="background: none; color: rgb(143, 68, 173);">
+                    Conteúdo difama alguém
+                </a></li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="tab-content">
+                        <div class="tab-pane container active" id="conteudo_improprio">
+                            <% include ./partials/dashboard/improprio.ejs %>
 
                         </div>
-                        
+                        <div class="tab-pane container fade" id="conteudo_ofensivo">
+                            <h3 class="text-center">Conteúdo ofensivo</h3>
+                            <hr>
+                            <p>Email:</p>
+                        </div>
+                        <div class="tab-pane container fade" id="conteudo_sem_correta">
+                            <h3 class="text-center">Conteúdo sem alternativa correta</h3>
+                            <hr>
+                            <p>Email:</p>
+                        </div>
+                        <div class="tab-pane container fade" id="conteudo_difama">
+                            <h3 class="text-center">Conteúdo difama alguém</h3>
+                            <hr>
+                            <p>Email:</p>
+                        </div>
                     </div>
-                    <div class="tab-pane container" id="informacoes_extras">
-                        <p>Informações extras</p>
-                    </div>
-                </div>
-            </div>
+                </li>
+            </ul>		
         </div>
     </div>
+    <br>
+</div>
 </body>
 </html>

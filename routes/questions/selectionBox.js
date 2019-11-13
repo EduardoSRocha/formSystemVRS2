@@ -31,7 +31,7 @@ router.post('/selectionBox', (req, res) => {
             question.options.push(option);
         });
         question.save();
-        res.redirect('/question/');
+        res.redirect('/home');
         } else {
         console.log(err);
         res.send(err);
