@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="DenunciandoFormulario">Denunciando formulário</h5>
+                <h5 class="modal-title" id="DenunciandoFormulario">Visualizando formulário</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -10,24 +10,35 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Categoria:</label>
-                        <select class="form-control" id="recipient-name">
-                            <option>Conteúdo impróprio</option>
-                            <option>Conteúdo ofensivo</option>
-                            <option>Conteúdo sem alternativa correta</option>
-                            <option>Conteúdo difama alguém</option>
-                        </select>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th class="col-4 text-center" scope="col">Denunciante</th>
+                                    <th class="col-8 text-center" scope="col">Descrição da denúncia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="col-4 text-center" scope="row">Fulano</th>
+                                    <td class="col-8" scoppe="row">Este formulário contém linguagem inadequada e me ofende.</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                    <hr>
+                    <h5 class="modal-title">Formulário denunciado</h5>
+                    <hr>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Descrição:</label>
-                        <textarea class="form-control" id="message-text"
-                            placeholder="Descreva se possível o que há de errado com o conteúdo deste formulário"></textarea>
+                        <p>Título: </p>
+                        <p>Descrição: </p>
+                        <p>Autor: </p>
+                        <p>Alternativas: </p>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Retornar</button>
-                <button type="button" class="btn btn-primary">Enviar denúncia</button>
+                <button type="button" class="btn btn-success btn-sm">Arquivar denúncia</button>
+                <button type="button" class="btn btn-danger btn-sm">Excluir formulário</button>
             </div>
         </div>
     </div>

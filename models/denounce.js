@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 //SCHEMA FOR SETUP ANSWER OF longText QUESTIONS 
 let Answer = new mongoose.Schema({
     denounce: String,
+    category: String, 
     question:{
         id: {
            type: mongoose.Schema.Types.ObjectId,
