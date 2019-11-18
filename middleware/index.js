@@ -3,13 +3,13 @@ module.exports = {
         if(req.isAuthenticated()){
             return next();
         }
-        req.flash("error", "Você precisa estar autenticado para esse acesso!");
-        res.redirect('/');
+        req.flash('error', "Você precisa estar autenticado para esse acesso!");
+        res.render('login');
     },
     globalenvironment: function(req, res, next){
         res.locals.currentUser = req.user;
-        res.locals.error = req.flash("error");
-        res.locals.success = req.flash("success");
+        res.locals.error = req.flash('error');
+        res.locals.success = req.flash('success');
         next();
     }
 }

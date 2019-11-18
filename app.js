@@ -56,11 +56,11 @@ app.use('/css', express.static(__dirname + '/public/css'));
 
 app.all('*', function(req, res) {
   if(!req.user){
-      req.flash("error", "Usuário não autenticado")
-      res.render("login");
+      req.flash('error', 'Usuário não autenticado');
+      res.render('login');
   } else {
-      req.flash("error", "404 - page not found")
-      res.render("home");
+      req.flash('error', '404 - page not found');
+      res.render('home');
   }
 });
 

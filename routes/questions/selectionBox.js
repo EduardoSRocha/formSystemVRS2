@@ -93,6 +93,8 @@ router.post("/updateQuestion/changeExpirationDate/:id", function(req, res){
 /** create answer of multiple questions */
 router.post("/answer/:id", function(req, res) {
 Answer.create({answer: req.body.answer}, function(err, answer){
+    Question.find({"_id": req.param.id}, function(err, question){
+        question.whoAnswered.push(String(req.user._id));
         if(!err){
             answer.question.id = req.params.id;
             answer.whoAnswered.id = req.user._id;
@@ -102,6 +104,8 @@ Answer.create({answer: req.body.answer}, function(err, answer){
         } else {
             console.log(err);
         }
+    })
+       
     });
 })
 

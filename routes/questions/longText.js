@@ -76,15 +76,18 @@ Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.descripti
 /** create answer of multiple questions */
 router.post("/answer/:id", function(req, res) {
     Answer.create({answer: req.body.answer}, function(err, answer){
-        if(!err){
-        answer.question.id = req.params.id;
-        answer.whoAnswered.id = req.user._id;
-        answer.whoAnswered.username = req.user.username;
-        answer.save();
-        res.json({ success: true });
-        } else {s
-        console.log(err);
-        }
+        Question.find({"_id": req.param.id}, function(err, question){
+            question.whoAnswered.push(String(req.user._id));
+            if(!err){
+                answer.question.id = req.params.id;
+                answer.whoAnswered.id = req.user._id;
+                answer.whoAnswered.username = req.user.username;
+                answer.save();
+                res.json({ success: true });
+            } else {
+                console.log(err);
+            }
+        })
     });
 })
 

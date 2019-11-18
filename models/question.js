@@ -23,7 +23,8 @@ let Question = new mongoose.Schema({
         {
             type: Number
         }
-    ]
+    ],
+    whoAnswered:[ String ]
 });
 
 module.exports = mongoose.model("question", Question);
