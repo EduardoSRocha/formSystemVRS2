@@ -22,13 +22,13 @@ router.post('/longText', (req, res) => {
         console.log(err);
         res.redirect("/login");
     } else {
-    Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title, type: "longtext", creationDate: Date.now()}, function(err, question){
+        Question.create({ expirationDate: req.body.expirationDate, description: req.body.description, title: req.body.title,  type: "longtext", creationDate: Date.now(), expirationDate: req.body.expirationDate}, function(err, question){
         if(!err){
         //add username and id to question
         question.author.id = user._id;
         question.author.username = user.username;
         question.save();
-        res.redirect('/question');
+        res.redirect('/home');
         } else {
         console.log(err);
         res.send(err);

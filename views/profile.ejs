@@ -62,13 +62,14 @@
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#infos" style="background: none; color: rgb(143, 68, 173);">Perfil do usuário</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#editar" style="background: none; color: rgb(143, 68, 173);">Editar informações</a></li>
 					<li class="nav-item">To do</li>
-					<%=success%>
+					
 				</ul>
 				<ul class="list-group">
 					<li class="list-group-item">
 						<div class="tab-content">
 							<div class="tab-pane container active" id="infos">
 								<h3>Perfil do usuário</h3>
+								<%=success%>
 								<p> Email: 
 									<% if(currentUser == undefined) { %> 
 										Usuário não logado - Erro na autenticação

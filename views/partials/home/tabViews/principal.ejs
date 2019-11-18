@@ -4,38 +4,49 @@
             <h3 class="text-center">Mais respondidas</h3>
             <p class="text-center">Local para as perguntas mais respondidas no momento.</p>
         </div>
-<!--        <% let formNumber = 0; %>
-        <% questions.forEach(question => {%> -->
+        <% let formNumber = 0; %>
+        <% questions.forEach(question => {%>
             <div class="col col-lg-4 order-1 p-1">
                 <div class="card" id="pergunta-1">
-<!--                    <div class="card-header text-center" data-toggle="collapse"
+                    <div class="card-header text-center" data-toggle="collapse"
                         data-target="#<%=formNumber%>">
-                        <h4><%= question.title %></h4> -->
+                        <h4><%= question.title %></h4>
                         <button class="btn btn-success btn-sm active">Votação em andamento!</button>
                     </div>
-<!--                    <div class="collapse show" id="<%=formNumber%>"> -->
-                        <div class="card-img text-center">
-                            <img src="img/pergunta_2.png" class="py-2 mx-auto d-block img-fluid" width="420"
-                                height="100">
-                        </div>
+                    <div class="collapse show" id="<%=formNumber%>">
                         <div class="card-body text-center">
-<!--                            <span class="text-muted"><%= question.description %></span><br> -->
-<!--                            <span class="text-muted" id="">Enviada por: <b><%= question.author.username %></b></span> -->
+                            <span class="text-muted"><%= question.description %></span><br>
+                            <span class="text-muted" id="">Enviada por: <b><%= question.author.username %></b></span>
                             <hr>
-<!--                            <form action='/multipleChoiceAnswer/<%= question._id %>' method="POST"> -->
-                                <table class="table table-bordered table-hover text-center">
-                                    
-                                    <tbody>
-<!--                                        <% question.options.forEach(option => {%> -->
-                                            <tr>
-<!--                                                <td><input type="radio" name="answer" id="" value="<%= option %>"> -->
-                                                </td>
-<!--                                                <td><%= option %></td> -->
-                                            </tr>
-<!--                                        <% }) %>	-->
-                                    </tbody>
-                                    
-                                </table>
+                            <form action='/multipleChoiceAnswer/<%= question._id %>' method="POST"> 
+
+                                <!-- FAZER UM MODAL PARA CADA QUESTÃO -->
+                                <% if(question.type = "multipleChoice"){ %> 
+                                    <table class="table table-bordered table-hover text-center">
+                                            <tbody>
+                                                <% question.optionsText.forEach(option => {%> 
+                                                    <tr>
+                                                        <td><input type="radio" name="answer" id="" value="<%= option %>"> 
+                                                        </td>
+                                                        <td><%= option %></td> 
+                                                    </tr>
+                                                <% }) %>	
+                                            </tbody>
+                                        </table>
+                                <% } %>
+                                <% if(question.type = "numeric"){ %> 
+                                    <table class="table table-bordered table-hover text-center">
+                                        <tbody>
+                                            <% question.optionsNumber.forEach(option => {%> 
+                                                <tr>
+                                                    <td><input type="radio" name="answer" id="" value="<%= option %>"> 
+                                                    </td>
+                                                    <td><%= option %></td> 
+                                                </tr>
+                                            <% }) %>	
+                                        </tbody>
+                                    </table>
+                                <% } %>
                                 
                                 <button type="submit" class="btn btn-success btn-sm">Enviar resposta</button>
                             </form>
@@ -46,7 +57,7 @@
                     </div>
                 </div>
             </div>
-<!--        <%formNumber++; %>
-        <% }) %> -->
+        <%formNumber++; %>
+        <% }) %> 
     </div>
 </div>

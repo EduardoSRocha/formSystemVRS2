@@ -27,7 +27,7 @@ router.post('/numeric', (req, res) => {
         //add username and id to question
         question.author.id = user._id;
         question.author.username = user.username;
-        res.redirect('/question/');
+        res.redirect('/home');
         } else {
         console.log(err);
         res.send(err);
