@@ -63,7 +63,8 @@ User.findOneAndUpdate({username: req.user.username},{gender: req.body.gender}, f
 })
 
 router.get('/home', isLoggedIn, (req, res) => {
-    Question.find({}).nin("whoAnswered", [req.user._id]).gt("expirationDate", Date.now()).then(function(a){
+    Question.find({}).nin("whoAnswered", [req.user._id]).gt("expirationDate", Date.now()).sort("-quantAnswers").then(function(a){
+        console.log(a);
         res.render('home', {'questions': a});
     });
 });

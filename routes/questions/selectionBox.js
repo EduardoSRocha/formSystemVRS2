@@ -91,34 +91,24 @@ router.post("/updateQuestion/changeExpirationDate/:id", function(req, res){
     })
 
 /** create answer of multiple questions */
-router.post("/answer/:id", function(req, res) {
-Answer.create({answer: req.body.answer}, function(err, answer){
-    Question.find({"_id": req.param.id}, function(err, question){
-        question.whoAnswered.push(String(req.user._id));
-        if(!err){
+router.post("/selectionBoxAnswer/:id", function(req, res) {
+    Answer.create({answer: req.body.answer}, function(err, answer){
+        Question.findOneAndUpdate({"_id": req.params.id}, {$inc:{quantAnswers: 1}}, {new: true}).then(async function(a){
+            await a.whoAnswered.push(String(req.user._id));
+            await a.save();
+            return a;
+        }).then(async function(a){
             answer.question.id = req.params.id;
             answer.whoAnswered.id = req.user._id;
             answer.whoAnswered.username = req.user.username;
             answer.save();
             res.json({ success: true });
-        } else {
-            console.log(err);
-        }
-    })
-       
+
+        })
+        
     });
 })
 
-/** Answers routes */
-router.get("/answer", function(req, res){
-Question.find({}).populate("_question").populate("_whoAnswered").exec( function(err, answers){
-        if(!err) {
-        console.log(answers)
-        } else { 
-        console.log(err)
-        }
-    });
-});
 
   
 module.exports = router;

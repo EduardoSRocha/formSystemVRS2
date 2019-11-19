@@ -24,7 +24,15 @@ let Question = new mongoose.Schema({
             type: Number
         }
     ],
-    whoAnswered:[ String ]
+    whoAnswered: [ 
+        {
+            type: String
+        } 
+    ],
+    quantAnswers: {
+        type: Number,
+        default: 0
+    }
 });
 
 module.exports = mongoose.model("question", Question);
