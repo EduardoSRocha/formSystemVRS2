@@ -75,13 +75,15 @@ Question.findByIdAndUpdate({_id: req.params.id},{description: req.body.descripti
 
 /** create answer of multiple questions */
 router.post("/longTextAnswer/:id", function(req, res) {
-    Answer.create({answer: req.body.answer}, function(err, answer){
+    Answer.create({answerString: req.body.answerString}, function(err, answer){
         Question.findOneAndUpdate({"_id": req.params.id}, {$inc:{quantAnswers: 1}}, {new: true}).then(async function(a){
             await a.whoAnswered.push(String(req.user._id));
             await a.save();
             return a;
         }).then(async function(a){
             answer.question.id = req.params.id;
+            answer.question.title = a.title;
+            answer.question._id = a._id;
             answer.whoAnswered.id = req.user._id;
             answer.whoAnswered.username = req.user.username;
             await answer.save();

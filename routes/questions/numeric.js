@@ -96,6 +96,8 @@ router.post("/answer/:id", function(req, res) {
             return a;
         }).then(async function(a){
             answer.question.id = req.params.id;
+            answer.question.title = a.title;
+            answer.question._id = a._id;
             answer.whoAnswered.id = req.user._id;
             answer.whoAnswered.username = req.user.username;
             answer.save();

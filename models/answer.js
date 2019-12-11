@@ -8,7 +8,9 @@ let Answer = new mongoose.Schema({
         id: {
            type: mongoose.Schema.Types.ObjectId,
            ref: "question"
-        }
+        },
+        title: String,
+        _id: String
      },
     answerString: String,
     answerNumber: Number,

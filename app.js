@@ -34,7 +34,7 @@ seoConfigs(app)
 
 /** assign mongoose promise library and connect to database */
 mongoose.Promise = global.Promise;
-const databaseUri = process.env.MDBA_KEY;
+const databaseUri = process.env.MDBL_KEY;
 console.log(databaseUri)
 //const databaseUri = process.env.MDBA_KEY || process.env.MDBL_KEY;
 mongoose.connect(databaseUri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
@@ -64,6 +64,10 @@ app.all('*', function(req, res) {
       res.render('home');
   }
 });
+
+
+const Answer = require("./models/answer");
+const Question = require("./models/question")
 
 /** Dev Test */
 if (module === require.main) {

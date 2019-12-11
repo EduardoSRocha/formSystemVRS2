@@ -13,67 +13,35 @@ router.use(flash());
 /**Configure global variables */
 router.use(globalenvironment);
 
-router.get('/reports', function(req, res){
-    /**função para pegar todas as respostas */
-    Question.find({}).exec(async function(err, AllQuestion){
-      //
-      let conjuntoDeQuestoes = [];
-      if(!err) {
-        //console.log(AllAnswers);
-        var conjuntoDeRespostas;
-        var indiceConjuntoDeQuestoes = 0;
-        await Answer.find().populate({ path: '_question', select: 'id' }).exec(async function(err, AllAnswers){
-          var tempQuestion; 
-          AllQuestion.forEach(async question => {
-            conjuntoDeRespostas = [];
-            tempQuestion = question;
-            if(!err) {
-              var indiceConjuntoDeRespostas = 0;
-              AllAnswers.forEach(async Answer => {
-                //Converter os Ids para string e comparar os Ids 
-                if(String(Answer.question.id) == String(question._id)){
-                  console.log(String(Answer.question.id), String(question._id));
-                  conjuntoDeRespostas[indiceConjuntoDeRespostas] = Answer;
-                }
-                indiceConjuntoDeRespostas++;
-              })
-  
-              conjuntoDeQuestoes[indiceConjuntoDeQuestoes] = {
-                question: tempQuestion.question,
-                answer: conjuntoDeRespostas
-              };
-              indiceConjuntoDeQuestoes++;
-  
-            } else {
-              console.log(err)
-            }
-            
-          });
-          //** Consultar o título da questão */
-          var indiceA = 0;
-          conjuntoDeQuestoes.forEach(questao => {
-            console.log(questao.question);
-            indiceA++;
-            var indiceB = 0
-            questao.answer.forEach(answer =>{
-              console.log(answer.answer);
-              indiceB++;
-            })
-            console.log();
-          })
-  
-          res.render("reports", {'setOfAnswers': conjuntoDeQuestoes});
-        })
-      } else {
-        console.log(err)
-      }
-    });
-    
+router.get('/reports', isLoggedIn, function(req, res){
+  async function selectionAgregate(){
+    return (Answer.aggregate([
+      {$match: {
+        "question._id": res.user()
+      }},
+        {
+          "$group": {
+            "_id": "$answerString",
+            "count": {"$sum":1}
+          }
+        }
+    ]).sort('_id').limit(50))
+  }
+
+  selectionAgregate().then((a)=>{
+    return a.map(obj=>({
+        name:obj._id,
+        data:[obj.count],
+     }));
+ }).then(function(a){
+    console.log(a);
+    res.render('reports/MultipleChoice', {'data': JSON.stringify(a), 'parametro': ''})
   })
+})
 
   
 router.get('/ranking', isLoggedIn, (req, res) => {
-    res.render('ranking', { message: req.flash("error")})
-  });
+  res.render('ranking', { message: req.flash("error")})
+});
   
 module.exports = router;

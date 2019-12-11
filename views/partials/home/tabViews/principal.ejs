@@ -19,14 +19,13 @@
                             <span class="text-muted" id="">Enviada por: <b><%= question.author.username %></b></span>
                             <hr>
                             <form action='/multipleChoiceAnswer/<%= question._id %>' method="POST"> 
-
                                 <!-- FAZER UM MODAL PARA CADA QUESTÃO -->
                                 <% if(question.type = "multipleChoice"){ %> 
                                     <table class="table table-bordered table-hover text-center">
                                             <tbody>
                                                 <% question.optionsText.forEach(option => {%> 
                                                     <tr>
-                                                        <td><input type="radio" name="answer" id="" value="<%= option %>"> 
+                                                        <td><input type="radio" name="answerString" id="" value="<%= option %>"> 
                                                         </td>
                                                         <td><%= option %></td> 
                                                     </tr>
@@ -39,7 +38,7 @@
                                         <tbody>
                                             <% question.optionsNumber.forEach(option => {%> 
                                                 <tr>
-                                                    <td><input type="radio" name="answer" id="" value="<%= option %>"> 
+                                                    <td><input type="radio" name="answerNumber" id="" value="<%= option %>"> 
                                                     </td>
                                                     <td><%= option %></td> 
                                                 </tr>
