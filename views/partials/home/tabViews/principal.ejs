@@ -5,23 +5,23 @@
             <p class="text-center">Local para as perguntas mais respondidas no momento.</p>
         </div>
         <% let formNumber = 0; %>
-        <% questions.forEach(question => {%>
-            <div class="col col-lg-4 order-1 p-1">
-                <div class="card" id="pergunta-1">
-                    <div class="card-header text-center" data-toggle="collapse"
-                        data-target="#<%=formNumber%>">
-                        <h4><%= question.title %></h4>
-                        <button class="btn btn-success btn-sm active">Votação em andamento!</button>
-                    </div>
-                    <div class="collapse show" id="<%=formNumber%>">
-                        <div class="card-body text-center">
-                            <span class="text-muted"><%= question.description %></span><br>
-                            <span class="text-muted" id="">Enviada por: <b><%= question.author.username %></b></span>
-                            <hr>
-                            <form action='/multipleChoiceAnswer/<%= question._id %>' method="POST"> 
-                                <!-- FAZER UM MODAL PARA CADA QUESTÃO -->
-                                <% if(question.type = "multipleChoice"){ %> 
-                                    <table class="table table-bordered table-hover text-center">
+            <% if(typeof questions !== 'undefined'){ questions.forEach(question => {%>
+                <div class="col col-lg-4 order-1 p-1">
+                    <div class="card" id="pergunta-1">
+                        <div class="card-header text-center" data-toggle="collapse"
+                            data-target="#<%=formNumber%>">
+                            <h4><%= question.title %></h4>
+                            <button class="btn btn-success btn-sm active">Votação em andamento!</button>
+                        </div>
+                        <div class="collapse show" id="<%=formNumber%>">
+                            <div class="card-body text-center">
+                                <span class="text-muted"><%= question.description %></span><br>
+                                <span class="text-muted" id="">Enviada por: <b><%= question.author.username %></b></span>
+                                <hr>
+                                <form action='/multipleChoiceAnswer/<%= question._id %>' method="POST"> 
+                                    <!-- FAZER UM MODAL PARA CADA QUESTÃO -->
+                                    <% if(question.type = "multipleChoice"){ %> 
+                                        <table class="table table-bordered table-hover text-center">
                                             <tbody>
                                                 <% question.optionsText.forEach(option => {%> 
                                                     <tr>
@@ -31,32 +31,36 @@
                                                     </tr>
                                                 <% }) %>	
                                             </tbody>
+                                            <a class="btn btn-success btn-sm" href='/chartMultipleChoice/<%=question._id%>'>Barra</a>
+                                            <a class="btn btn-success btn-sm" href='/chartMultipleChoicePie/<%=question._id%>'>Pizza</a>
                                         </table>
-                                <% } %>
-                                <% if(question.type = "numeric"){ %> 
-                                    <table class="table table-bordered table-hover text-center">
-                                        <tbody>
-                                            <% question.optionsNumber.forEach(option => {%> 
-                                                <tr>
-                                                    <td><input type="radio" name="answerNumber" id="" value="<%= option %>"> 
-                                                    </td>
-                                                    <td><%= option %></td> 
-                                                </tr>
-                                            <% }) %>	
-                                        </tbody>
-                                    </table>
-                                <% } %>
-                                
-                                <button type="submit" class="btn btn-success btn-sm">Enviar resposta</button>
-                            </form>
-                        </div>
-                        <div class="card-footer text-right">
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#denunciar_formulario">Denunciar</button>
+                                    <% } %>
+                                    <% if(question.type = "numeric"){ %> 
+                                        <table class="table table-bordered table-hover text-center">
+                                            <tbody>
+                                                <% question.optionsNumber.forEach(option => {%> 
+                                                    <tr>
+                                                        <td><input type="radio" name="answerNumber" id="" value="<%= option %>"> 
+                                                        </td>
+                                                        <td><%= option %></td> 
+                                                    </tr>
+                                                <% }) %>	
+                                            </tbody>
+                                        </table>
+                                    <% } %>
+                                    
+                                    <button type="submit" class="btn btn-success btn-sm">Enviar resposta</button>
+                                </form>
+                            </div>
+                            <div class="card-footer text-right">
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#denunciar_formulario">Denunciar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        <%formNumber++; %>
-        <% }) %> 
+            <%formNumber++; %>
+            <% }) %>
+        <%}%>
+         
     </div>
 </div>

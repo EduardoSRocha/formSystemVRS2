@@ -3,6 +3,35 @@
         <div class="col col-12 p-1">
             <h3 class="text-center">Minhas respostas</h3>
             <p class="text-center">Local onde estará as perguntas que eu respondi.</p>
+            <% let formNumber = 0; %>
+            <% if(typeof questions !== 'undefined'){ answeredQuestions.forEach(question => {%>
+                <div class="col col-lg-4 order-1 p-1">
+                    <div class="card" id="pergunta-1">
+                        <div class="card-header text-center" data-toggle="collapse"
+                            data-target="#<%=formNumber%>">
+                            <h4><%= question.title %></h4>
+                            <button class="btn btn-success btn-sm active">Votação em andamento!</button>
+                        </div>
+                        <div class="collapse show" id="<%=formNumber%>">
+                            <div class="card-body text-center">
+                                <span class="text-muted"><%= question.description %></span><br>
+                                <span class="text-muted" id="">Enviada por: <b><%= question.author.username %></b></span>
+                                <hr>
+                                <form action='/multipleChoiceAnswer/<%= question._id %>' method="POST"> 
+                                    <!-- FAZER UM MODAL PARA CADA QUESTÃO -->
+                                    <% if(question.type = "multipleChoice"){ %> 
+                                        <table class="table table-bordered table-hover text-center">
+                                            <a class="btn btn-success btn-sm" href='/chartMultipleChoiceAnswer/<%=question._id%>'>Resultado Parcial</a>
+                                        </table>
+                                    <% } %>                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <%formNumber++; %>
+            <% }) %>
+        <%}%>
         </div>
     </div>
 </div>

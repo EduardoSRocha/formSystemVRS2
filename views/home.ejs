@@ -8,8 +8,15 @@
 </head>
 
 <body>
-	<%= error %>
-	<%= success %>
+	<% if(error !== undefined){ %>
+		<%= error %>
+	<% } %>
+
+	<% if(success !== undefined){ %>
+		<%= success %>
+	<% } %>
+	
+	
 	<!-- Navbar -->
 	<% include ./partials/navbar %>
 	<!-- Jumbotron -->

@@ -14,7 +14,7 @@ const basicRoutes = require('./basics');
 router.use(userRoutes);
 router.use(authenticationRoutes);
 router.use(multipleChoiceRoutes);
-router.use(reportRoutes);
+//router.use(reportRoutes);
 router.use(shortText);
 router.use(longText);
 router.use(numeric);

@@ -44,15 +44,24 @@ router.post('/register', function(req, res){
   var bday = new Date(req.body.bday);
   var age = now.getYear() - bday.getYear();
 
-  User.register(new User({username: req.body.username, email: req.body.username, bday: new Date(req.body.bday)}), req.body.password, function(err, user){     
-    if(err){
-      console.log(err);
-      return res.render("register", {'error': err.message});
+  User.find({username: req.body.username}, function (err, user) {
+    if(!err){
+      if(user !== undefined){
+        req.flash("error", "o e-mail " + req.body.username + " já está cadastrado no nosso Banco de dados");
+        res.redirect('home');
+      } else {
+        User.register(new User({username: req.body.username, email: req.body.username, bday: new Date(req.body.bday)}), req.body.password, function(err, user){     
+          if(err){
+            console.log(err);
+            return res.render("register", {'error': err.message});
+          }
+          passport.authenticate("local")(req, res, function(){
+            req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
+            res.redirect('home');
+          });
+        })
+      }
     }
-    passport.authenticate("local")(req, res, function(){
-      req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-      res.redirect('home');
-    });
   })
 })
 
@@ -65,6 +74,8 @@ router.post("/login", passport.authenticate("local", {
   successRedirect: "/perfil",
   failureRedirect: "/login",
   failureFlash: true,
+  failureFlash: true,
+  failureMessage: 'Tente mais tarde',
   successFlash: 'Bem Vindo ao FSystem!'
 }), function(req, res){
 });

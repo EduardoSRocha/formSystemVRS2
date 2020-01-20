@@ -14,20 +14,6 @@ router.use(flash());
 router.use(globalenvironment);
 
 router.get('/reports', isLoggedIn, function(req, res){
-  async function selectionAgregate(){
-    return (Answer.aggregate([
-      {$match: {
-        "question._id": res.user()
-      }},
-        {
-          "$group": {
-            "_id": "$answerString",
-            "count": {"$sum":1}
-          }
-        }
-    ]).sort('_id').limit(50))
-  }
-
   selectionAgregate().then((a)=>{
     return a.map(obj=>({
         name:obj._id,
@@ -35,13 +21,26 @@ router.get('/reports', isLoggedIn, function(req, res){
      }));
  }).then(function(a){
     console.log(a);
-    res.render('reports/MultipleChoice', {'data': JSON.stringify(a), 'parametro': ''})
+    res.render('reports/MultipleChoice', {'data': JSON.stringify(a), 'parametro': 'numero de votos', 'questions': ''})
   })
 })
 
-  
 router.get('/ranking', isLoggedIn, (req, res) => {
   res.render('ranking', { message: req.flash("error")})
 });
   
+async function selectionAgregate(){
+  return (Answer.aggregate([
+    {$match: {
+      "question._id": res.user
+    }},
+      {
+        "$group": {
+          "_id": "$answerString",
+          "count": {"$sum":1}
+        }
+      }
+  ]).sort('_id').limit(50))
+}
+
 module.exports = router;
