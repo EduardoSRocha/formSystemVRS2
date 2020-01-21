@@ -310,7 +310,7 @@ async function selectionPopulateAggregate(){
 
 //chamada de funções
 //call functions
-selectionAgregateDataQuestion("5e24972b254b14264813755f").then(async a => {
+/* selectionAgregateDataQuestion("5e24972b254b14264813755f").then(async a => {
   let exist;
   await Question.findById("5e24972b254b14264813755f", async function(err, question){
     if(!err){
@@ -348,6 +348,6 @@ selectionAgregateDataQuestion("5e24972b254b14264813755f").then(async a => {
    }));
 }).then(a => {
   console.log(a);
-}) 
+})  */
 
 module.exports = router;

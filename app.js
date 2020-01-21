@@ -34,10 +34,7 @@ seoConfigs(app)
 
 /** assign mongoose promise library and connect to database */
 mongoose.Promise = global.Promise;
-const databaseUri = process.env.MDBL_KEY;
-console.log(databaseUri)
-//const databaseUri = process.env.MDBA_KEY || process.env.MDBL_KEY;
-mongoose.connect(databaseUri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
+mongoose.connect(process.env.MDBA_KEY || process.env.MDBL_KEY, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
 .then(() => console.log(`Database connected`))
 .catch(err => console.log(`Database connection error: ${err.message}`));
 
